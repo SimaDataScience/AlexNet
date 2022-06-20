@@ -33,7 +33,48 @@ The paper includes many finer details that are less novel. Relu activation is us
 The creators of the AlexNet network trained their model across two GPUs by splitting the networks layers between the GPUs, with layers from separate GPUs being combine only sporadically. This implementation takes a different approach to multi-GPU utilization by instead giving the options to split the entire training task across multiple GPUs. Rather than each GPU being responsible for only a subset of the entire model, this implementation utilizes Tensorflow's MirroredStrategy to fully distribute model training across all available GPUs on the current machine. This can be easily extended to train on multiple workers using Tensorflow's MultiWorkerMirroredStrategy if desired.
 
 ## Example Implementation
+### Basic Implemenation: Creating and Fitting an AlexNet Model
+Let's create and train an AlexNet inspired model. Before we begin, we must ensure our data is in the desired format. We assume that all images are located in a single directory with subdirectories 'train/', 'val/', and 'test/'. Additionally, we assume that we have a json file mapping image ids to their corresponding label, and another json file mapping labels to label index. The label indices can be arbitrary, but must be provided for the sake of consistency across sessions. While the variable 'data_path' may be either a local path or a URL link to the desired image directory, both 'label_path' and 'label_encoding' must be local.
 
+Let's begin by defining these paths.
+
+
+```python
+from AlexNet import AlexNet
+
+data_path = 'DIRECTORY-CONTAINING-IMAGE-SUBDIRECTORIES'
+
+label_path = 'PATH-TO-IMAGE-LABEL-MAP.json'
+# Example format: {image_1: 'cat', image_2: 'mug', ...}
+
+label_encoding = 'PATH-TO-LABEL-INDEX-MAP.json'
+# Example format: {'cat': 0, 'mug': 1, ...}
+
+```
+
+With the paths prepared, creating and fitting our model is as simple as running the following:
+
+
+```python
+# Create and fit model.
+model = AlexNet(data_path, label_path, label_encoding)
+model.fit(epochs=5)
+
+```
+
+And just like that, we're ready to make predictions with our model. The 'predict' method can be used to return the 1,000 dimensional output array, or the method 'predict_n' can be used to return the n classes with the highest probability. All image augmentations are handled automatically, so the location of our 256x256x3 input image is the only input that is needed.
+
+
+
+```python
+test_image = '/Users/justinsima/dir/implementations/datasets/ImageNet/dummy_data/test/ILSVRC2012_test_00018560.JPEG'
+
+pred = model.predict(test_image)
+top_pred = model.predict_n(test_image, n=1)
+
+print(f'Prediction Probabilities: \n{pred}')
+print(f'Most Likely Class: {top_pred})
+```
 
 ## Source
 Thanks for checking out my repo. For more information please see the original paper here: https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html
