@@ -56,9 +56,9 @@ With the paths prepared, creating and fitting our model is as simple as running 
 
 
 ```python
-# Create and fit model.
+# Create and fit model. Store history for plotting training curve.
 model = AlexNet(data_path, label_path, label_encoding)
-model.fit(epochs=5)
+history = model.fit(epochs=5)
 
 ```
 
