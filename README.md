@@ -34,7 +34,7 @@ The creators of the AlexNet network trained their model across two GPUs by split
 
 ## Example Implementation
 ### Basic Implemenation: Creating and Fitting an AlexNet Model
-Let's create and train an AlexNet inspired model. Before we begin, we must ensure our data is in the desired format. We assume that all images are located in a single directory with subdirectories 'train/', 'val/', and 'test/'. Additionally, we assume that we have a json file mapping image ids to their corresponding label, and another json file mapping labels to label index. The label indices can be arbitrary, but must be provided for the sake of consistency across sessions. While the variable 'data_path' may be either a local path or a URL link to the desired image directory, both 'label_path' and 'label_encoding' must be local.
+Let's create and train an AlexNet inspired model. Before we begin, we must ensure our data is in the desired format. We assume that all images are located in a single directory with subdirectories 'train/', 'val/', and 'test/'. Additionally, we assume that we have a json file mapping image ids to their corresponding label, and another json file mapping labels to label index. The label indices can be arbitrary, but must be provided for the sake of consistency across sessions. The variable 'data_path' may be either a local path or a URL link to the desired image directory, and both 'label_path' and 'label_encoding' must be json files.
 
 Let's begin by defining these paths.
 
