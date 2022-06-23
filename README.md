@@ -44,11 +44,11 @@ from AlexNet import AlexNet
 
 data_path = 'DIRECTORY-CONTAINING-IMAGE-SUBDIRECTORIES'
 
+# Example file format: {image_1: 'cat', image_2: 'mug', ...}
 label_path = 'PATH-TO-IMAGE-LABEL-MAP.json'
-# Example format: {image_1: 'cat', image_2: 'mug', ...}
 
+# Example file format: {'cat': 0, 'mug': 1, ...}
 label_encoding = 'PATH-TO-LABEL-INDEX-MAP.json'
-# Example format: {'cat': 0, 'mug': 1, ...}
 
 ```
 
