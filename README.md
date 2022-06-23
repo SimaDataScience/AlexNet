@@ -1,6 +1,6 @@
 # AlexNet
 ## Implementation of AlexNet Network
-The following is an implemenation of AlexNet for image classification. It allows you to train a model with identical specifications to AlexNet on training and validation images saved in a specified directory (local or not).
+The following is an implemenation of AlexNet for image classification. It allows you to train a model with identical specifications to AlexNet on training and validation images saved in a specified directory.
 
 ## Basic Architecture
 The AlexNet architecture consists of five convolutional layers, and three fully connected layers.
