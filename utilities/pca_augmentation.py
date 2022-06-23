@@ -21,15 +21,13 @@ def create_pca_term(eig_values : np.array, eig_vectors : np.array):
 
     return pca_term
 
-def calculate_pca_constants(image_directory : str, image_names : list) -> tuple:
+def calculate_pca_constants(directory : str) -> tuple:
     """ Returns eigenvalues and eigenvectors from PCA decompostion of RGB values for
     all provided image names.
     Used to find constants needed for preprocessing RGB values during training and fitting.
 
     Args:
         image_directory (str): Directory containing images.
-        image_names (list): List of names for desired images to use in calculation.
-        The size of this list can be altered to fit CPU constraints.
 
     Returns:
         tuple: (eigenvalues : np.array, eigenvectors : np.array, rgb_means : np.array).
@@ -37,10 +35,17 @@ def calculate_pca_constants(image_directory : str, image_names : list) -> tuple:
         3X1 array, 3x3 array, and 3x1 array containing the eigenvalues, eigenvectors, and means,
         respectively, for the centering and PCA decomposition of RGB values.
     """
+    # Find all JPEG files in directory.
+    image_names = []
+    for _, _, image_list in os.walk(directory):
+        for image_name in image_list:
+            if image_name.endswith('.JPEG'):
+                image_names.append(image_name)
+
     # Create array of all rgb values in directory.
     rgb_array = np.empty((3,1))
     for image_name in image_names:
-        file_name = os.path.join(image_directory, image_name)
+        file_name = os.path.join(directory, image_name)
         image = tf.keras.preprocessing.image.load_img(file_name, target_size=[256, 256])
 
         image_array = tf.keras.preprocessing.image.img_to_array(image)

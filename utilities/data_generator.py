@@ -17,15 +17,19 @@ class ImageNetDataGenerator(tf.keras.utils.Sequence):
         label_encoding : Path to json mapping label to label index.
     """
     def __init__(
-            self, image_directory, label_path, label_encoding_path, batch_size=2,
-            shape=(224, 224), n_channels=3, n_classes=1000, shuffle=True
+            self,
+            image_directory, label_path, label_encoding_path,
+            eigenvalues, eigenvectors, rgb_means,
+            batch_size=2, shape=(224, 224), n_channels=3, n_classes=1000, shuffle=True
         ):
-        # Initialize attributes.
+        # General attributes.
         self.shape = shape
         self.batch_size = batch_size
         self.n_channels = n_channels
         self.n_classes = n_classes
         self.shuffle = shuffle
+
+        # Image directory, image indexes (ids), labels, and encodings.
         self.directory = image_directory
         self.list_ids = [
             picture_name for picture_name in
@@ -34,6 +38,11 @@ class ImageNetDataGenerator(tf.keras.utils.Sequence):
         ]
         self.labels = load_json(label_path)
         self.label_encoding = load_json(label_encoding_path)
+
+        # Terms for PCA augmentation.
+        self.eigenvalues = eigenvalues
+        self.eigenvectors = eigenvectors
+        self.rgb_means = rgb_means
         self.on_epoch_end()
 
     def __len__(self):
@@ -76,10 +85,10 @@ class ImageNetDataGenerator(tf.keras.utils.Sequence):
 
             # Transform sample.
             median_term = np.zeros((224, 224, 3))
-            median_term[2] = np.asarray(RGB_MEANS)
+            median_term[2] = np.asarray(self.rgb_means)
 
             pca_term = np.zeros((224, 224, 3))
-            pca_term[2] = create_pca_term(EIGENVALUES, EIGENVECTORS)
+            pca_term[2] = create_pca_term(self.eigenvalues, self.eigenvectors)
 
             image_array = ( process_image(image_path) - median_term + pca_term) / 255.
 
