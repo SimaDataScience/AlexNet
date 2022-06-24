@@ -53,13 +53,15 @@ def calculate_pca_constants(directory : str) -> tuple:
 
         rgb_array = np.concatenate([rgb_array, rgb_values], axis=1)
 
-    # Center data.
+    # Center and scale data.
     rgb_means = np.mean(rgb_array, axis=1)
     rgb_array[0] -= rgb_means[0]
     rgb_array[1] -= rgb_means[1]
     rgb_array[2] -= rgb_means[2]
 
-    # Perform PCA decomposition.
+    rgb_array = rgb_array / 255.
+
+    # Find eigenvalues and eigevectors of covariance matrix.
     covariance_matrix = np.cov(rgb_array)
     eig_values, eig_vectors = np.linalg.eig(covariance_matrix)
 

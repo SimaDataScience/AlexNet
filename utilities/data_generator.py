@@ -90,7 +90,7 @@ class ImageNetDataGenerator(tf.keras.utils.Sequence):
             pca_term = np.zeros((224, 224, 3))
             pca_term[2] = create_pca_term(self.eigenvalues, self.eigenvectors)
 
-            image_array = ( process_image(image_path) - median_term + pca_term) / 255.
+            image_array = ( (process_image(image_path) - median_term) / 255. ) + pca_term
 
             ######
             X[i,] = image_array
