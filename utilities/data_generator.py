@@ -124,7 +124,7 @@ def process_image(file_name : str) -> np.array:
     # Retrieve PIL format image from file name.
     image = tf.keras.preprocessing.image.load_img(file_name, target_size=[256, 256])
 
-    image_array = tf.keras.preprocessing.image.img_to_array(image) / 255.0
+    image_array = tf.keras.preprocessing.image.img_to_array(image)
 
     # Select cropped slice of image.
     corner = ( np.random.randint(0, 32), np.random.randint(0, 32) )
