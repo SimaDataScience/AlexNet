@@ -1,6 +1,6 @@
 # AlexNet
 ## Implementation of AlexNet Network
-The following is an implemenation of AlexNet for image classification. It allows you to train a model with identical specifications to AlexNet on training and validation images saved in a specified directory.
+The following is an implemenation of 'ImageNet Classification with Deep Convolutional Neural Networks' by Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton. It allows you to train a model with identical specifications to AlexNet on training and validation images saved in a specified directory.
 
 ## Basic Architecture
 The AlexNet architecture consists of five convolutional layers, and three fully connected layers.
