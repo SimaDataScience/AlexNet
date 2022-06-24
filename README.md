@@ -62,7 +62,7 @@ history = model.fit(epochs=5)
 
 ```
 
-And just like that, we're ready to make predictions with our model. The 'predict' method can be used to return the 1,000 dimensional output array, or the method 'predict_n' can be used to return the n classes with the highest probability. All image augmentations are handled automatically, so the location of our 256x256x3 input image is the only input that is needed.
+And just like that, we're ready to make predictions with our model. The 'predict' method can be used to return the 1,000 dimensional output array, or the method 'predict_n' can be used to return the n classes with the highest probability. All image augmentations are handled automatically, so the location of our color input image is the only input that is needed.
 
 
 
